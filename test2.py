@@ -19,6 +19,7 @@ import time
 
 msg = 'Hello World'
 
+
 class Ui_MainWindow(object):
 
     inbox = []
@@ -38,19 +39,24 @@ class Ui_MainWindow(object):
         self.lblUsername = QtWidgets.QLabel(self.formLayoutWidget)
         self.lblUsername.setTextFormat(QtCore.Qt.AutoText)
         self.lblUsername.setObjectName("lblUsername")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.lblUsername)
+        self.formLayout.setWidget(
+            0, QtWidgets.QFormLayout.LabelRole, self.lblUsername)
         self.txtUsername = QtWidgets.QLineEdit(self.formLayoutWidget)
         self.txtUsername.setObjectName("txtUsername")
+        self.txtUsername.setText("noodzakelijkonline@gmail.com")
 
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.txtUsername)
+        self.formLayout.setWidget(
+            0, QtWidgets.QFormLayout.FieldRole, self.txtUsername)
         self.lblPassword = QtWidgets.QLabel(self.formLayoutWidget)
         self.lblPassword.setObjectName("lblPassword")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.lblPassword)
+        self.formLayout.setWidget(
+            1, QtWidgets.QFormLayout.LabelRole, self.lblPassword)
         self.txtPassword = QtWidgets.QLineEdit(self.formLayoutWidget)
         self.txtPassword.setEchoMode(QtWidgets.QLineEdit.Password)
         self.txtPassword.setObjectName("txtPassword")
 
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.txtPassword)
+        self.formLayout.setWidget(
+            1, QtWidgets.QFormLayout.FieldRole, self.txtPassword)
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(370, 10, 221, 23))
         font = QtGui.QFont()
@@ -124,7 +130,8 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 350, 581, 41))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
 
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout = QtWidgets.QHBoxLayout(
+            self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
 
@@ -139,7 +146,7 @@ class Ui_MainWindow(object):
         self.btnClose = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.btnClose.setObjectName("btnClose")
         self.horizontalLayout.addWidget(self.btnClose)
-        self.btnClose.clicked.connect(self.exitApp) # Exit Application
+        self.btnClose.clicked.connect(self.exitApp)  # Exit Application
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -182,9 +189,11 @@ class Ui_MainWindow(object):
         self.lblUsername.setText(_translate("MainWindow", "Username:"))
         self.lblPassword.setText(_translate("MainWindow", "Password:"))
         self.label.setText(_translate("MainWindow", "Already Sent Messages"))
-        self.label_4.setText(_translate("MainWindow", "Time Until Next Message"))
+        self.label_4.setText(_translate(
+            "MainWindow", "Time Until Next Message"))
         self.label_3.setText(_translate("MainWindow", "Message"))
-        self.label_2.setText(_translate("MainWindow", "Interval Time (in Minutes)"))
+        self.label_2.setText(_translate(
+            "MainWindow", "Interval Time (in Minutes)"))
         self.btnStart.setText(_translate("MainWindow", "Run"))
         self.btnStop.setText(_translate("MainWindow", "Stop"))
         self.btnClose.setText(_translate("MainWindow", "Exit"))
@@ -198,11 +207,12 @@ class Ui_MainWindow(object):
         self.actionPaste.setStatusTip(_translate("MainWindow", "Paste a file"))
         self.actionPaste.setShortcut(_translate("MainWindow", "Ctrl+V"))
         self.actionNew.setText(_translate("MainWindow", "New"))
-        self.actionNew.setStatusTip(_translate("MainWindow", "Create a new file"))
+        self.actionNew.setStatusTip(_translate(
+            "MainWindow", "Create a new file"))
         self.actionNew.setShortcut(_translate("MainWindow", "Ctrl+N"))
 
-
     # Run Function
+
     def runApp(self):
         username = self.txtUsername.text()
         password = self.txtPassword.text()
@@ -210,10 +220,12 @@ class Ui_MainWindow(object):
         options = webdriver.ChromeOptions()
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        driver = webdriver.Chrome(
+            ChromeDriverManager().install(), options=options)
         driver.get('https://simbi.com/')
 
-        login_url = driver.find_element(By.XPATH, '/html/body/nav[2]/div/div[3]/a[3]')
+        login_url = driver.find_element(
+            By.XPATH, '/html/body/nav[2]/div/div[3]/a[3]')
         login_url.click()
 
         txtUsername = driver.find_element(By.ID, 'user_email')
@@ -270,7 +282,8 @@ class Ui_MainWindow(object):
                         msg = f"Hello {user_title.text},\n I came across you request {request_title.text}\n I think i can help by finding the right Simbi candidate for you to help you with your request. Would you be interested in that ?\n For more information, here is my Simbi service:\n {settings.service_URL}\n Looking forward to hearing from you\n ~ {settings.name}"
                         sleep(2)
 
-                        inquiry_box = driver.find_element(By.NAME, 'inquiry_text')
+                        inquiry_box = driver.find_element(
+                            By.NAME, 'inquiry_text')
                         inquiry_box.send_keys(msg)
                         sleep(1)
                         btnCancel = driver.find_element(
@@ -281,7 +294,8 @@ class Ui_MainWindow(object):
                             writer = csv.writer(fin)
                             writer.writerow(data)
 
-                    driver.get(f'https://simbi.com/requests?page={page_number}')
+                    driver.get(
+                        f'https://simbi.com/requests?page={page_number}')
                     sleep(2)
             else:
                 pass
@@ -298,7 +312,6 @@ class Ui_MainWindow(object):
             for row in file_reader:
                 self.inbox.append(row)
         return len(self.inbox)
-
 
 
 if __name__ == "__main__":
