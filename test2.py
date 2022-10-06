@@ -142,7 +142,6 @@ class Ui_MainWindow(object):
         self.btnStop = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.btnStop.setObjectName("btnStop")
         self.horizontalLayout.addWidget(self.btnStop)
-        self.btnStop.Enabled(False)
 
         self.btnClose = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.btnClose.setObjectName("btnClose")
