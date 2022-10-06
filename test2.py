@@ -180,6 +180,9 @@ class Ui_MainWindow(object):
         print(counter)
         self.lblCounter.setText(str(counter))
 
+        # Disable stop Button
+        self.btnStop.setEnabled(False)
+
         # Run function
         self.btnStart.clicked.connect(self.runApp)
 
@@ -216,7 +219,7 @@ class Ui_MainWindow(object):
     def runApp(self):
         username = self.txtUsername.text()
         password = self.txtPassword.text()
-        print(username, password)
+        # print(username, password)
         options = webdriver.ChromeOptions()
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
